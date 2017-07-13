@@ -34,13 +34,13 @@ public class ModelMainActivity implements ModelMainActivityInterface {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
                             if(response.getString("error").equals("false")) {
                                     JSONArray jsonArray = response.getJSONArray("results");
-                                    if (jsonArray == null) {
-                                        return;
-                                    }
                                     Gson gson = new Gson();
                                     news n = gson.fromJson(jsonArray.getString(0), news.class);
+                                    presenterListener.onSuccess(n);
+
                             }else{
                                 presenterListener.onError();
                             }
